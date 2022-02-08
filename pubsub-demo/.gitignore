@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+ninth-palace-335210-c3ceb2d856c2.json
 
 ### STS ###
 .apt_generated
