@@ -11,6 +11,7 @@ import org.springframework.cloud.gcp.pubsub.support.BasicAcknowledgeablePubsubMe
 import org.springframework.cloud.gcp.pubsub.support.GcpPubSubHeaders;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.annotation.MessagingGateway;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.messaging.MessageChannel;
@@ -49,9 +50,16 @@ public class PubSub {
         return new DirectChannel();
     }
 
+    // Outbound channel adapter
+
     @Bean
     @ServiceActivator(inputChannel = "pubsubOutputChannel")
     public MessageHandler messageSender(PubSubTemplate pubsubTemplate) {
         return new PubSubMessageHandler(pubsubTemplate, "testTopic");
+    }
+
+    @MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
+    public interface PubsubOutboundGateway {
+        void sendToPubsub(String text);
     }
 }
