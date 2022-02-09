@@ -55,7 +55,7 @@ public class PubSub {
     @Bean
     @ServiceActivator(inputChannel = "pubsubOutputChannel")
     public MessageHandler messageSender(PubSubTemplate pubsubTemplate) {
-        return new PubSubMessageHandler(pubsubTemplate, "testTopic");
+        return new PubSubMessageHandler(pubsubTemplate, "output-topic");
     }
 
     @MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
